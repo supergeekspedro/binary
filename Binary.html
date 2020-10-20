@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Binary </title>
+    <style>
+        body {
+            background: #232931;
+            color: #e23e57;
+            display: grid;
+            font-family: monospace;
+            grid-template-rows: 60vh 40vh;
+            height: 100vh;
+            margin: 0;
+        }
+        .binary-content {
+            display: grid;
+            gap: 16px;
+            grid-auto-flow: column;
+            grid-auto-columns: 16vh;
+            justify-content: center;
+        }
+        .frames {
+            align-items: center;
+            display: grid;
+            justify-content: center;
+        }
+            .card {
+                background: #303841;
+                align-items: center;
+                border-radius: 4px;
+                display: grid;
+                font-size: 42pt;
+                height: 30vh;
+                text-align: center;
+                width: 16vh;
+            }
+            .card:hover {
+                background: #d54062;
+                color: #232931;
+            }
+            .state {
+                font-size: 24pt;
+                text-align: center;
+                width: 16vh;
+            }
+        .binary-result {
+            align-items: center;
+            display: grid;
+            font-size: 42pt;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="binary-content">
+        <div class="frames">
+            <div class="card" data-card="4">16</div>
+            <div class="state" data-cardstate="4">0</div>
+        </div>
+    
+        <div class="frames">
+            <div class="card" data-card="3">8</div>
+            <div class="state" data-cardstate="3">0</div>
+        </div>
+    
+        <div class="frames">
+            <div class="card" data-card="2">4</div>
+            <div class="state" data-cardstate="2">0</div>
+        </div>
+    
+        <div class="frames">
+            <div class="card" data-card="1">2</div>
+            <div class="state" data-cardstate="1">0</div>
+        </div>
+    
+        <div class="frames">
+            <div class="card" data-card="0">1</div>
+            <div class="state" data-cardstate="0">0</div>
+        </div>
+    </div>
+
+    <div class="binary-result">0</div>
+
+    <script>
+        const states = document.querySelectorAll(".state");
+        const cards = document.querySelectorAll(".card");
+        const result = document.querySelector(".binary-result");
+
+        var binaryArray = [0, 0, 0, 0, 0];
+        var binaryValue = [1, 2, 4, 8, 16];
+        var decimalValue = 0;
+        
+        cards.forEach(function(card) {
+            card.addEventListener("click", function(event) {
+                const index = event.target.dataset.card;
+                binaryArray[index] = binaryArray[index] == 1 ? 0 : 1;
+                for (state of states) {
+                    if (state.dataset.cardstate == index) {
+                        state.innerHTML = binaryArray[index];
+                    }
+                }
+                decimalValue = 0;
+                for (num in binaryArray) {
+                    if (binaryArray[num] == 1) {
+                        decimalValue += binaryValue[num];
+                    }
+                }
+                result.innerHTML = decimalValue;
+            })
+        })
+    </script>
+
+</body>
+</html>
